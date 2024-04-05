@@ -3,7 +3,7 @@ import styles from "./SelectLevelPage.module.css";
 import { useCheckbox } from "./CheckboxContext";
 
 export function SelectLevelPage() {
-  const { setIsEasyMode } = useCheckbox();
+  const { isEasyMode, setIsEasyMode } = useCheckbox();
 
   const handleCheckboxChange = e => {
     const isChecked = e.target.checked;
@@ -16,7 +16,7 @@ export function SelectLevelPage() {
       <div className={styles.modal}>
         <h1 className={styles.title}>Выбери сложность</h1>
 
-        <input type="checkbox" id="easyModeCheckbox" onChange={handleCheckboxChange} />
+        <input value={isEasyMode} type="checkbox" id="easyModeCheckbox" onChange={handleCheckboxChange} />
         <label htmlFor="easyModeCheckbox">Упрощенный режим</label>
 
         <ul className={styles.levels}>
