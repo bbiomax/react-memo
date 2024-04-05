@@ -3,10 +3,11 @@ import styles from "./SelectLevelPage.module.css";
 import { useCheckbox } from "./CheckboxContext";
 
 export function SelectLevelPage() {
-  const [, setIsEasyMode] = useCheckbox();
+  const { setIsEasyMode } = useCheckbox();
 
   const handleCheckboxChange = e => {
     const isChecked = e.target.checked;
+    console.log(isChecked);
     setIsEasyMode(isChecked);
   };
 

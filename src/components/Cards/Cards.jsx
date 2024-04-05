@@ -42,8 +42,6 @@ function getTimerValue(startDate, endDate) {
  * previewSeconds - сколько секунд пользователь будет видеть все карты открытыми до начала игры
  */
 export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
-  const { isEasyMode } = useCheckbox();
-
   // В cards лежит игровое поле - массив карт и их состояние открыта\закрыта
   const [cards, setCards] = useState([]);
   // Текущий статус игры
@@ -89,6 +87,9 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
    */
 
   const [mistakesCount, setMistakesCount] = useState(0);
+
+  const { isEasyMode } = useCheckbox();
+  console.log(isEasyMode);
 
   const openCard = clickedCard => {
     // Если карта уже открыта, то ничего не делаем
