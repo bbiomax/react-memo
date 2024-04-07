@@ -7,7 +7,6 @@ export function SelectLevelPage() {
 
   const handleCheckboxChange = e => {
     const isChecked = e.target.checked;
-    console.log(isChecked);
     setIsEasyMode(isChecked);
   };
 
@@ -16,7 +15,13 @@ export function SelectLevelPage() {
       <div className={styles.modal}>
         <h1 className={styles.title}>Выбери сложность</h1>
 
-        <input value={isEasyMode} type="checkbox" id="easyModeCheckbox" onChange={handleCheckboxChange} />
+        <input
+          className={styles.checkbox}
+          checked={isEasyMode}
+          type="checkbox"
+          id="easyModeCheckbox"
+          onChange={handleCheckboxChange}
+        />
         <label htmlFor="easyModeCheckbox">Упрощенный режим</label>
 
         <ul className={styles.levels}>

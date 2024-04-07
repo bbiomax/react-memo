@@ -89,7 +89,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   const [mistakesCount, setMistakesCount] = useState(0);
 
   const { isEasyMode } = useCheckbox();
-  console.log(isEasyMode);
 
   const openCard = clickedCard => {
     // Если карта уже открыта, то ничего не делаем
