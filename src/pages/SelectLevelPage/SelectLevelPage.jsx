@@ -41,6 +41,9 @@ export function SelectLevelPage() {
             </Link>
           </li>
         </ul>
+        <Link className={styles.leaderboard} to="/leaderboard">
+          Перейти к лидерборду
+        </Link>
       </div>
     </div>
   );
