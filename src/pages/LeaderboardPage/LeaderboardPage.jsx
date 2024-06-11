@@ -1,24 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import styles from "./LeaderboardPage.module.css";
 import { getLeaderboard } from "../../api";
 import { Link } from "react-router-dom";
+import { useLeaderboard } from "./LeaderboardContext";
 
 export default function LeaderboardPage() {
-  const [leaderboard, setLeaderboard] = useState([]);
+  const { leaderboard, setLeaderboard } = useLeaderboard();
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
         const data = await getLeaderboard();
         data.sort((a, b) => a.time - b.time);
-        setLeaderboard(data);
+        const sliceData = data.slice(0, 10);
+        setLeaderboard(sliceData);
       } catch (error) {
         console.error("Ошибка загрузки лидерборда: ", error);
       }
     };
 
     fetchLeaderboard();
-  }, []);
+  }, [setLeaderboard]);
 
   function formatTime(seconds) {
     const minutes = Math.floor(seconds / 60);

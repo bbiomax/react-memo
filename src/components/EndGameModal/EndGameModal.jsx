@@ -7,6 +7,7 @@ import celebrationImageUrl from "./images/celebration.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { addLeader } from "../../api";
+import { useLeaderboard } from "../../pages/LeaderboardPage/LeaderboardContext";
 
 export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, onClick, cards }) {
   const title = isWon ? "Вы победили!" : "Вы проиграли!";
@@ -16,6 +17,9 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
   const imgAlt = isWon ? "celebration emodji" : "dead emodji";
 
   const [username, setUsername] = useState("Пользователь");
+
+  const { leaderboard } = useLeaderboard();
+  console.log(leaderboard);
 
   const handleUserNameChange = e => {
     setUsername(e.target.value);
