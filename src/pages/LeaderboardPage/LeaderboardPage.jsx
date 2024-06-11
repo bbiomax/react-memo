@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react";
 import styles from "./LeaderboardPage.module.css";
+import { getLeaderboard } from "../../api";
 
 export default function LeaderboardPage() {
+  const [leaderboard, setLeaderboard] = useState([]);
+
+  useEffect(() => {
+    const fetchLeaderboard = async () => {
+      try {
+        const data = await getLeaderboard();
+        setLeaderboard(data);
+      } catch (error) {
+        console.error("Ошибка загрузки лидерборда: ", error);
+      }
+    };
+
+    fetchLeaderboard();
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -14,23 +31,20 @@ export default function LeaderboardPage() {
             <span>Пользователь</span>
             <span>Время</span>
           </div>
-          <div className={styles.boardRating}>
-            <div className={styles.boardRatingPlace}>
-              <span>#1</span>
-              <span>ab98awj_918mlz1lavfh_ru</span>
-              <span>01:30</span>
+
+          {leaderboard.length > 0 ? (
+            <div className={styles.boardRating}>
+              {leaderboard.map((leader, index) => (
+                <div key={index} className={styles.boardRatingPlace}>
+                  <span>#{index + 1}</span>
+                  <span>{leader.name}</span>
+                  <span>{leader.time}</span>
+                </div>
+              ))}
             </div>
-            <div className={styles.boardRatingPlace}>
-              <span>#2</span>
-              <span>ab98awj_918mlz1lavfh_ru</span>
-              <span>05:23</span>
-            </div>
-            <div className={styles.boardRatingPlace}>
-              <span>#3</span>
-              <span>ab98awj_918mlz1lavfh_ru</span>
-              <span>10:47</span>
-            </div>
-          </div>
+          ) : (
+            <div className={styles.title}>Данные загружаются...</div>
+          )}
         </div>
       </div>
     </div>
