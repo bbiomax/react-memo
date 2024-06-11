@@ -13,9 +13,6 @@ export async function getLeaderboard() {
 export async function addLeader(leader) {
   const response = await fetch(hostUrl, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
     body: JSON.stringify({
       name: leader.name || "Пользователь",
       time: leader.time,

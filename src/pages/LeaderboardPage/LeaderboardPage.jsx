@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "./LeaderboardPage.module.css";
 import { getLeaderboard } from "../../api";
+import { Link } from "react-router-dom";
 
 export default function LeaderboardPage() {
   const [leaderboard, setLeaderboard] = useState([]);
@@ -9,6 +10,7 @@ export default function LeaderboardPage() {
     const fetchLeaderboard = async () => {
       try {
         const data = await getLeaderboard();
+        data.sort((a, b) => a.time - b.time);
         setLeaderboard(data);
       } catch (error) {
         console.error("Ошибка загрузки лидерборда: ", error);
@@ -32,7 +34,9 @@ export default function LeaderboardPage() {
       <div className={styles.content}>
         <div className={styles.header}>
           <span className={styles.title}>Лидерборд</span>
-          <button className={styles.button}>Начать игру</button>
+          <Link className={styles.button} to="/">
+            Начать игру
+          </Link>
         </div>
         <div className={styles.board}>
           <div className={styles.boardNames}>
