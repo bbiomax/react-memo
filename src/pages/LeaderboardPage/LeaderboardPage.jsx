@@ -18,6 +18,15 @@ export default function LeaderboardPage() {
     fetchLeaderboard();
   }, []);
 
+  function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    const formattedMinutes = minutes.toString().padStart(2, "0");
+    const formattedSeconds = remainingSeconds.toString().padStart(2, "0");
+    const formattedTime = `${formattedMinutes}:${formattedSeconds}`;
+    return formattedTime;
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
@@ -38,7 +47,7 @@ export default function LeaderboardPage() {
                 <div key={index} className={styles.boardRatingPlace}>
                   <span>#{index + 1}</span>
                   <span>{leader.name}</span>
-                  <span>{leader.time}</span>
+                  <span>{formatTime(leader.time)}</span>
                 </div>
               ))}
             </div>
