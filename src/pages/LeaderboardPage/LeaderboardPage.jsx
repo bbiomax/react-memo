@@ -1,11 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styles from "./LeaderboardPage.module.css";
 import { getLeaderboard } from "../../api";
 import { Link } from "react-router-dom";
-import { useLeaderboard } from "./LeaderboardContext";
 
 export default function LeaderboardPage() {
-  const { leaderboard, setLeaderboard } = useLeaderboard();
+  const [leaderboard, setLeaderboard] = useState();
 
   useEffect(() => {
     const fetchLeaderboard = async () => {
@@ -47,7 +46,7 @@ export default function LeaderboardPage() {
             <span>Время</span>
           </div>
 
-          {leaderboard.length > 0 ? (
+          {leaderboard?.length > 0 ? (
             <div className={styles.boardRating}>
               {leaderboard.map((leader, index) => (
                 <div key={index} className={styles.boardRatingPlace}>

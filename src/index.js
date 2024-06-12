@@ -4,15 +4,12 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
 import { CheckboxProvider } from "./pages/SelectLevelPage/CheckboxContext";
-import { LeaderboardProvider } from "./pages/LeaderboardPage/LeaderboardContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <LeaderboardProvider>
-      <CheckboxProvider>
-        <RouterProvider router={router}></RouterProvider>
-      </CheckboxProvider>
-    </LeaderboardProvider>
+    <CheckboxProvider>
+      <RouterProvider router={router}></RouterProvider>
+    </CheckboxProvider>
   </React.StrictMode>,
 );
