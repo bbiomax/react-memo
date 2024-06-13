@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 export default function LeaderboardPage() {
   const [leaderboard, setLeaderboard] = useState();
 
+  console.log(leaderboard);
+
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {

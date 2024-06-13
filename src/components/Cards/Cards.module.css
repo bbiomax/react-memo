@@ -78,3 +78,13 @@
   font-size: 16px;
   font-weight: 400;
 }
+
+.eyeHelp {
+  width: 68px;
+  height: 68px;
+  background: #c2f5ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

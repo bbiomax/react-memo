@@ -230,6 +230,10 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           )}
         </div>
 
+        <div className={styles.eyeHelp}>
+          <img src="../eye.png" alt="eye-help" />
+        </div>
+
         {isEasyMode && <div className={styles.mistakesCount}>Осталось ошибок: {3 - mistakesCount}</div>}
 
         {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Начать заново</Button> : null}
