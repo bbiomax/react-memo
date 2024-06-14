@@ -6,6 +6,7 @@ import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
 import { useCheckbox } from "../../pages/SelectLevelPage/CheckboxContext";
+import { EyeHelp } from "../Helpers/EyeHelp";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -206,6 +207,16 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     };
   }, [gameStartDate, gameEndDate]);
 
+  const [flipAllCards, setFlipAllCards] = useState(false);
+
+  const flipCardsHelp = () => {
+    setFlipAllCards(true);
+    console.log("ура работает");
+    setTimeout(() => {
+      setFlipAllCards(false);
+    }, 5000);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -230,9 +241,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           )}
         </div>
 
-        <div className={styles.eyeHelp}>
-          <img src="../eye.png" alt="eye-help" />
-        </div>
+        <EyeHelp onClick={() => flipCardsHelp()} />
 
         {isEasyMode && <div className={styles.mistakesCount}>Осталось ошибок: {3 - mistakesCount}</div>}
 
@@ -244,7 +253,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           <Card
             key={card.id}
             onClick={() => openCard(card)}
-            open={status !== STATUS_IN_PROGRESS ? true : card.open}
+            open={status !== STATUS_IN_PROGRESS ? true : card.open || flipAllCards}
             suit={card.suit}
             rank={card.rank}
           />
