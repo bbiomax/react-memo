@@ -69,6 +69,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
           <Button
             onClick={() => {
               onClick();
+              onClick = { PostNewLeader };
             }}
           >
             Начать сначала

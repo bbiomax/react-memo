@@ -59,6 +59,8 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     minutes: 0,
   });
 
+  const [timerPaused, setTimerPaused] = useState(false);
+
   function finishGame(status = STATUS_LOST) {
     setGameEndDate(new Date());
     setStatus(status);
@@ -199,13 +201,16 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
   // Обновляем значение таймера в интервале
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTimer(getTimerValue(gameStartDate, gameEndDate));
-    }, 300);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [gameStartDate, gameEndDate]);
+    if (!timerPaused) {
+      const intervalId = setInterval(() => {
+        setTimer(getTimerValue(gameStartDate, gameEndDate));
+      }, 300);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [gameStartDate, gameEndDate, timerPaused]);
 
   const [flipAllCards, setFlipAllCards] = useState(false);
   const [clickedHelp, setClickedHelp] = useState(false);
@@ -213,8 +218,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   const flipCardsHelp = () => {
     setFlipAllCards(true);
     setClickedHelp(true);
+    setTimerPaused(true);
+
     setTimeout(() => {
       setFlipAllCards(false);
+      setTimerPaused(false);
     }, 5000);
   };
 
