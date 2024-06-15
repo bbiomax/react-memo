@@ -16,6 +16,7 @@ export async function addLeader(leader) {
     body: JSON.stringify({
       name: leader.name || "Пользователь",
       time: leader.time,
+      achievements: leader.achievements,
     }),
   });
 

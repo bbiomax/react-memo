@@ -68,7 +68,8 @@
   height: 64px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap: 66px;
   padding-left: 20px;
   padding-right: 20px;
   color: #999999;
@@ -88,10 +89,28 @@
   height: 64px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap: 66px;
+
   padding-left: 20px;
   padding-right: 20px;
   color: #000;
   font-family: StratosSkyeng;
   font-size: 24px;
+}
+
+.position {
+  width: 178px;
+}
+
+.username {
+  width: 227px;
+}
+
+.achievements {
+  width: 194px;
+}
+
+.time {
+  width: 92px;
 }

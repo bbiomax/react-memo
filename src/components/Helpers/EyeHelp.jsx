@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./EyeHelp.module.css";
 
-export function EyeHelp() {
+export function EyeHelp({ flipCardsHelp }) {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const handleMouseEnter = () => {
@@ -13,7 +13,7 @@ export function EyeHelp() {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={flipCardsHelp}>
       <div className={styles.eyeHelp} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
         <img src="../eye.png" alt="eye-help" />
       </div>

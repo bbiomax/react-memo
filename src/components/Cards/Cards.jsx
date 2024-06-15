@@ -208,10 +208,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   }, [gameStartDate, gameEndDate]);
 
   const [flipAllCards, setFlipAllCards] = useState(false);
+  const [clickedHelp, setClickedHelp] = useState(false);
 
   const flipCardsHelp = () => {
     setFlipAllCards(true);
-    console.log("ура работает");
+    setClickedHelp(true);
     setTimeout(() => {
       setFlipAllCards(false);
     }, 5000);
@@ -241,7 +242,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           )}
         </div>
 
-        <EyeHelp onClick={() => flipCardsHelp()} />
+        <EyeHelp flipCardsHelp={flipCardsHelp} />
 
         {isEasyMode && <div className={styles.mistakesCount}>Осталось ошибок: {3 - mistakesCount}</div>}
 
@@ -268,6 +269,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             gameDurationMinutes={timer.minutes}
             onClick={resetGame}
             cards={cards}
+            clickedHelp={clickedHelp}
           />
         </div>
       ) : null}

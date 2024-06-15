@@ -7,8 +7,9 @@ import celebrationImageUrl from "./images/celebration.png";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { addLeader } from "../../api";
+import { useCheckbox } from "../../pages/SelectLevelPage/CheckboxContext";
 
-export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, onClick, cards }) {
+export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, onClick, cards, clickedHelp }) {
   const title = isWon ? "Вы победили!" : "Вы проиграли!";
 
   const imgSrc = isWon ? celebrationImageUrl : deadImageUrl;
@@ -17,14 +18,25 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
 
   const [username, setUsername] = useState("Пользователь");
 
+  const { isEasyMode } = useCheckbox();
+
   const handleUserNameChange = e => {
     setUsername(e.target.value);
   };
 
   const PostNewLeader = async () => {
+    const achievements = [];
+    if (!isEasyMode) {
+      achievements.push(1);
+    }
+    if (!clickedHelp) {
+      achievements.push(2);
+    }
+
     const leader = {
       name: username,
       time: gameDurationMinutes * 60 + gameDurationSeconds,
+      achievements,
     };
 
     try {
@@ -57,7 +69,6 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
           <Button
             onClick={() => {
               onClick();
-              PostNewLeader();
             }}
           >
             Начать сначала
