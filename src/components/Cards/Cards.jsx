@@ -6,6 +6,7 @@ import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
 import { useCheckbox } from "../../pages/SelectLevelPage/CheckboxContext";
+import { EyeHelp } from "../Helpers/EyeHelp";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -57,6 +58,8 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     seconds: 0,
     minutes: 0,
   });
+
+  const [timerPaused, setTimerPaused] = useState(false);
 
   function finishGame(status = STATUS_LOST) {
     setGameEndDate(new Date());
@@ -198,13 +201,30 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
   // Обновляем значение таймера в интервале
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTimer(getTimerValue(gameStartDate, gameEndDate));
-    }, 300);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [gameStartDate, gameEndDate]);
+    if (!timerPaused) {
+      const intervalId = setInterval(() => {
+        setTimer(getTimerValue(gameStartDate, gameEndDate));
+      }, 300);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [gameStartDate, gameEndDate, timerPaused]);
+
+  const [flipAllCards, setFlipAllCards] = useState(false);
+  const [clickedHelp, setClickedHelp] = useState(false);
+
+  const flipCardsHelp = () => {
+    setFlipAllCards(true);
+    setClickedHelp(true);
+    setTimerPaused(true);
+
+    setTimeout(() => {
+      setFlipAllCards(false);
+      setTimerPaused(false);
+    }, 5000);
+  };
 
   return (
     <div className={styles.container}>
@@ -230,6 +250,8 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           )}
         </div>
 
+        <EyeHelp flipCardsHelp={flipCardsHelp} />
+
         {isEasyMode && <div className={styles.mistakesCount}>Осталось ошибок: {3 - mistakesCount}</div>}
 
         {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Начать заново</Button> : null}
@@ -240,7 +262,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           <Card
             key={card.id}
             onClick={() => openCard(card)}
-            open={status !== STATUS_IN_PROGRESS ? true : card.open}
+            open={status !== STATUS_IN_PROGRESS ? true : card.open || flipAllCards}
             suit={card.suit}
             rank={card.rank}
           />
@@ -255,6 +277,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             gameDurationMinutes={timer.minutes}
             onClick={resetGame}
             cards={cards}
+            clickedHelp={clickedHelp}
           />
         </div>
       ) : null}

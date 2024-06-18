@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.eyeHelp {
+  position: relative;
+  width: 68px;
+  height: 68px;
+  background: #c2f5ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tooltip {
+  top: 125px;
+  position: absolute;
+  width: 222px;
+  height: 223px;
+  padding: 25px 20px 20px 20px;
+  background: #C2F5FF;
+  border-radius: 12px;
+  line-height: 24px;
+
+  font-family: StratosSkyeng;
+  font-size: 20px;
+
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 10px;
+
+  z-index: 999;
+}

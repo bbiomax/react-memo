@@ -41,20 +41,33 @@ export default function LeaderboardPage() {
         </div>
         <div className={styles.board}>
           <div className={styles.boardNames}>
-            <span>Позиция</span>
-            <span>Пользователь</span>
-            <span>Время</span>
+            <span className={styles.position}>Позиция</span>
+            <span className={styles.username}>Пользователь</span>
+            <span className={styles.achievements}>Достижения</span>
+            <span className={styles.time}>Время</span>
           </div>
 
           {leaderboard?.length > 0 ? (
             <div className={styles.boardRating}>
-              {leaderboard.map((leader, index) => (
-                <div key={index} className={styles.boardRatingPlace}>
-                  <span>#{index + 1}</span>
-                  <span>{leader.name}</span>
-                  <span>{formatTime(leader.time)}</span>
-                </div>
-              ))}
+              {leaderboard.map((leader, index) => {
+                const isHardMode = leader.achievements.find(achievement => achievement === 1);
+                const isWithoutHelpMode = leader.achievements.find(achievement => achievement === 2);
+
+                return (
+                  <div key={index} className={styles.boardRatingPlace}>
+                    <span className={styles.position}>#{index + 1}</span>
+                    <span className={styles.username}>{leader.name}</span>
+                    <div className={styles.achievements}>
+                      <img src={isHardMode ? "icon-hardmode.png" : "non-icon-hardmode.png"} alt="non-icon-hardmode" />
+                      <img
+                        src={isWithoutHelpMode ? "icon-withouthelp.png" : "non-icon-withouthelp.png"}
+                        alt="non-icon-hardmode"
+                      />
+                    </div>
+                    <span className={styles.time}>{formatTime(leader.time)}</span>
+                  </div>
+                );
+              })}
             </div>
           ) : (
             <div className={styles.title}>Данные загружаются...</div>
